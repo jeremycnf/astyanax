@@ -18,10 +18,8 @@ package com.netflix.astyanax.serializers;
 import java.nio.ByteBuffer;
 import java.util.List;
 
-import org.apache.cassandra.db.marshal.AbstractType;
-import org.apache.cassandra.db.marshal.ListType;
-
-import com.netflix.astyanax.serializers.AbstractSerializer;
+import astyanax.shaded.org.apache.cassandra.db.marshal.AbstractType;
+import astyanax.shaded.org.apache.cassandra.db.marshal.ListType;
 
 /**
  * Serializer implementation for generic lists.

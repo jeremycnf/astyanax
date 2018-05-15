@@ -19,7 +19,7 @@ import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.cassandra.db.marshal.BytesType;
+import astyanax.shaded.org.apache.cassandra.db.marshal.BytesType;
 
 /**
  * The BytesExtractor is a simple identity function. It supports the Extractor

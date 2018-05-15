@@ -17,7 +17,7 @@ package com.netflix.astyanax.serializers;
 
 import java.nio.ByteBuffer;
 
-import org.apache.cassandra.db.marshal.FloatType;
+import astyanax.shaded.org.apache.cassandra.db.marshal.FloatType;
 
 /**
  * Uses IntSerializer via translating Float objects to and from raw long bytes

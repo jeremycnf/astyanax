@@ -158,9 +158,13 @@ public class CqlColumnImpl<C> implements Column<C> {
 		return row.getBytes(index);
 	}
 
+	/**
+	 * @return {@link Date} from {@link com.datastax.driver.core.GettableByIndexData#getTimestamp(int)} for backwards-
+	 * compatibility because this {@link #getTimestamp()} returns column timestamp, not value of a Date-based column.
+	 */
 	@Override
 	public Date getDateValue() {
-		return (isBlob) ? DateSerializer.get().fromByteBuffer(row.getBytes(index)) : row.getDate(index);
+		return (isBlob) ? DateSerializer.get().fromByteBuffer(row.getBytes(index)) : row.getTimestamp(index);
 	}
 
 	@Override

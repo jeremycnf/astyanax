@@ -174,12 +174,9 @@ public class AstyanaxContextFactory {
     	
     	ProtocolOptions protocolOptions = new ProtocolOptions(9042);
 		
-		Configuration jdConfig = new Configuration(new Policies(),
-	             protocolOptions,
-	             new PoolingOptions(),
-	             new SocketOptions(),
-	             new MetricsOptions(),
-	             new QueryOptions());
+		Configuration jdConfig = Configuration.builder()
+				.withProtocolOptions(protocolOptions)
+				.build();
 
 		AstyanaxContext<Keyspace> context = new AstyanaxContext.Builder()
 		.forKeyspace(keyspaceName)

@@ -18,7 +18,7 @@ package com.netflix.astyanax.util;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.cassandra.utils.Pair;
+import astyanax.shaded.org.apache.cassandra.utils.Pair;
 
 /**
  * 

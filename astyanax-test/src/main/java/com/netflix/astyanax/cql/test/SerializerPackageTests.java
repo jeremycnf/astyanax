@@ -19,9 +19,6 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.cassandra.db.marshal.AbstractType;
-import org.apache.cassandra.db.marshal.CompositeType;
-import org.apache.cassandra.db.marshal.UTF8Type;
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -89,10 +86,12 @@ public class SerializerPackageTests extends KeyspaceTests {
 
 		Composite dc = new Composite(ss1);
 
-		List<AbstractType<?>> types = new ArrayList<AbstractType<?>>();
-		types.add(UTF8Type.instance);
+		List<astyanax.shaded.org.apache.cassandra.db.marshal.AbstractType<?>> types =
+				new ArrayList<astyanax.shaded.org.apache.cassandra.db.marshal.AbstractType<?>>();
+		types.add(astyanax.shaded.org.apache.cassandra.db.marshal.UTF8Type.instance);
 
-		CompositeType c1 = CompositeType.getInstance(types);
+		astyanax.shaded.org.apache.cassandra.db.marshal.CompositeType c1 =
+				astyanax.shaded.org.apache.cassandra.db.marshal.CompositeType.getInstance(types);
 
 		SpecificCompositeSerializer ccSerializer = new SpecificCompositeSerializer(c1);
 		ByteBuffer bb2 = ccSerializer.toByteBuffer(dc);

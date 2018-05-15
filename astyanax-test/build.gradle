@@ -9,11 +9,13 @@ dependencies {
     compile project(':astyanax-recipes')
     compile project(':astyanax-queue')
     compile project(':astyanax-entity-mapper')
+    compile "org.slf4j:log4j-over-slf4j:$slf4jVersion"
 
     // CassandraDaemon for EmbeddedCassandra
     compile "org.cassandraunit:cassandra-unit-shaded:$cassandraUnitShadedVersion"
 
     testCompile "junit:junit:$junitVersion"
-    testCompile "org.slf4j:log4j-over-slf4j:$slf4jVersion"
+    testCompile "org.slf4j:slf4j-api:$slf4jVersion"
+    testCompile "org.slf4j:slf4j-simple:$slf4jVersion"
 }
 

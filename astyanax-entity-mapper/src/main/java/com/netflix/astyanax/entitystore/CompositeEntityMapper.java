@@ -242,7 +242,7 @@ public class CompositeEntityMapper<T, K> {
      * Construct an entity object from a row key and column list.
      * 
      * @param id
-     * @param cl
+     * @param column
      * @return
      */
     T constructEntity(K id, com.netflix.astyanax.model.Column<ByteBuffer> column) {
@@ -300,13 +300,13 @@ public class CompositeEntityMapper<T, K> {
     }
 
     public String getKeyType() {
-        return idMapper.getSerializer().getComparatorType().getClassName();
+        return idMapper.getSerializer().getComparatorType().getTypeName();
     }
 
     /**
      * Return an object from the column
      * 
-     * @param cl
+     * @param c
      * @return
      */
     Object fromColumn(K id, com.netflix.astyanax.model.Column<ByteBuffer> c) {
@@ -359,7 +359,7 @@ public class CompositeEntityMapper<T, K> {
         sb.append(StringUtils.join(
             Collections2.transform(components, new Function<FieldMapper<?>, String>() {
                 public String apply(FieldMapper<?> input) {
-                    return input.serializer.getComparatorType().getClassName();
+                    return input.serializer.getComparatorType().getTypeName();
                 }
             }),
             ","));
@@ -386,7 +386,7 @@ public class CompositeEntityMapper<T, K> {
     }
 
     String getValueType() {
-        return valueMapper.getSerializer().getComparatorType().getClassName();
+        return valueMapper.getSerializer().getComparatorType().getTypeName();
     }
 
     ByteBuffer[] getQueryEndpoints(Collection<ColumnPredicate> predicates) {
