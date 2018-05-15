@@ -13,11 +13,14 @@ dependencies {
     compile "joda-time:joda-time:$jodaTimeVersion"
     compile "javax.persistence:persistence-api:$jpaVersion"
     compile "org.slf4j:slf4j-api:$slf4jVersion"
+    compile "org.slf4j:log4j-over-slf4j:$slf4jVersion"
     compile "commons-lang:commons-lang:$commonsLangVersion"
     compile("com.datastax.cassandra:cassandra-driver-core:$javaDriverVersion") {
         exclude group: 'com.google.guava', module: 'guava'
     }
-    compile ("org.apache.cassandra:cassandra-all:$cassandraVersion") {
+
+    testCompile "org.slf4j:slf4j-simple:$slf4jVersion"
+    testCompile ("org.apache.cassandra:cassandra-all:$cassandraVersion") {
        force = true
     }
 }
