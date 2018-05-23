@@ -5,6 +5,7 @@ plugins {
 ext.githubProjectName = rootProject.name // Change if github project name is not the same as the root project's name
 
 apply from: 'dependency-versions.gradle'
+print "Using cassandraShadedVersion=${cassandraShadedVersion}\n"
 
 subprojects {
     apply plugin: 'nebula.netflixoss'
@@ -12,16 +13,8 @@ subprojects {
 
     group = "com.netflix.${githubProjectName}"
 
-    sourceCompatibility = 1.6
-    targetCompatibility = 1.6
-
     repositories {
         jcenter()
     }
 
-    javadoc{
-        options {
-            failOnError = false
-        }
-    }
 }

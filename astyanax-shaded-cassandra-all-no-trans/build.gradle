@@ -1,29 +1,49 @@
-// Shaded version of cassandra-all without its huge array of transitive dependencies.
+// Builds shaded version of cassandra-all without its huge array of transitive dependencies.
 // * Provides the few cassandra-all classes astyanax-cassandra actually uses.
 // * Eliminates dependency issues caused by cassandra-all transitives which Astyanax doesn't need.
 // * Eliminates incompatibility with other libs that want cassandra-all (e.g. cassandra-unit or cassandra-unit-shaded).
 //
-// Uses shadow plugin to shade this project's dependencies by renaming their packages.
-// Modules depending on this specify normal package names in their source.
-// The shadow plugin renames this module's class packages when building the jar.
+// Uses plugin-shadow to shade/relocate this project's classes by renaming their packages when building the jar.
+//
+// This module does not build with the rest of Astyanax because it follows a different release cadence.
+// Build and publish this module only when cassandraVersion changes and reference the cassandraVersion in
+// this module's artifact version.
+//
 
 plugins {
     id 'com.github.johnrengelman.plugin-shadow' version '2.0.3'
-    id 'java'
 }
 
+apply plugin: 'com.github.johnrengelman.plugin-shadow'
+apply plugin: 'java'
+
 dependencies {
-    compile ("org.apache.cassandra:cassandra-all:$cassandraVersion") {
+    compile ("org.apache.cassandra:cassandra-all:${cassandraVersion}") {
         // Exclude all those heavy transitive dependencies because Astyanax doesn't use them
-       transitive = false
+        transitive = false
     }
 }
 
 shadowJar {
+    // Shade the cassandra classes as "astyanax.shaded..."
     relocate("org.apache.cassandra", "astyanax.shaded.org.apache.cassandra"){
         exclude 'org.apache.cassandra.thrift'
     }
-    archiveName = 'astyanax-shaded-cassandra-all-no-trans.jar'
+    // Override the classifier added before ".jar" (default "all")
+    classifier = ''
 }
 
-tasks.build.dependsOn(shadowJar)
+javadoc{
+    options {
+        failOnError = false
+    }
+}
+
+tasks.build.dependsOn(tasks.shadowJar)
+
+// Create only the shadow jar containing the shaded classes
+tasks.jar.deleteAllActions()
+tasks.jar.dependsOn(tasks.shadowJar)
+
+// Override default tag-based nebula version for the jar name
+version = cassandraShadedVersion

@@ -1,6 +1,5 @@
 dependencies {
     compile project(':astyanax-core')
-    compile project(':astyanax-shaded-cassandra-all-no-trans')
     compile project(':astyanax-cassandra')
     compile project(':astyanax-thrift')
     compile project(':astyanax-cql')

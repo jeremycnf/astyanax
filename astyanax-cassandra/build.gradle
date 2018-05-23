@@ -2,9 +2,10 @@ apply plugin: 'osgi'
 
 dependencies {
     compile project(':astyanax-core')
-    // Use shaded version of cassandra-all for the few simple classes Astyanax actually uses.
-    // Note this shaded version of cassandra-all does not include any of its transitive dependencies.
-    compile project(path: ':astyanax-shaded-cassandra-all-no-trans', configuration: 'shadow')
+
+    // Use shaded version of cassandra-all (with no transitive dependencies)
+    // for the few cassandra-all classes Astyanax actually uses.
+    compile "com.netflix.astyanax:astyanax-shaded-cassandra-all-no-trans:$cassandraShadedVersion"
 
     compile "org.xerial.snappy:snappy-java:$snappyVersion"
     compile "org.codehaus.jackson:jackson-mapper-asl:$jacksonVersion"
