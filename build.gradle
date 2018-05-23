@@ -17,4 +17,19 @@ subprojects {
         jcenter()
     }
 
+    javadoc{
+        options {
+            failOnError = false
+        }
+    }
+}
+
+// Execute tasks only for astyanax-shaded-cassandra-all-no-trans when -Pshaded=true
+gradle.taskGraph.whenReady {
+    gradle.taskGraph.allTasks.each {
+        if(project.properties.get("shaded") == "true" &&
+                it.project.name != "astyanax-shaded-cassandra-all-no-trans") {
+            it.onlyIf { false }
+        }
+    }
 }
