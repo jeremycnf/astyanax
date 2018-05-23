@@ -24,12 +24,19 @@ subprojects {
     }
 }
 
-// Execute tasks only for astyanax-shaded-cassandra-all-no-trans when -Pshaded=true
 gradle.taskGraph.whenReady {
     gradle.taskGraph.allTasks.each {
-        if(project.properties.get("shaded") == "true" &&
-                it.project.name != "astyanax-shaded-cassandra-all-no-trans") {
-            it.onlyIf { false }
+        if(project.properties.get("shaded") == "true"){
+            // Execute tasks only for astyanax-shaded-cassandra-all-no-trans when -Pshaded=true
+            if(it.project.name != "astyanax-shaded-cassandra-all-no-trans" &&
+                    it.project.name != "astyanax"){
+                it.onlyIf { false }
+            }
+        } else {
+            // Execute tasks for all modules except astyanax-shaded-cassandra-all-no-trans when shaded property is not true
+            if(it.project.name == "astyanax-shaded-cassandra-all-no-trans"){
+                it.onlyIf { false }
+            }
         }
     }
 }
